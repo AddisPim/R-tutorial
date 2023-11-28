@@ -288,3 +288,108 @@ In the above example we can see R using pass-by-value to keep the variable 'a' u
 - https://www.geeksforgeeks.org/recursive-functions/
 - https://www.digitalocean.com/community/tutorials/java-is-pass-by-value-and-not-pass-by-reference
 
+## PLP-4 Control Statements in R
+
+### if/else
+As in all programming languages, there are conditional statements that can be used to test whether a condition is True or False. There are also selection control statements which are used to choose between cases. In R, there are several conditional statements, the main one being if/else statements. The 'if' statement must have the conditional statment within parenthesis, if this condition is met then the code will execute the lines of code within curly brackets. Curly brackets are used to delimit code blocks under each condition.
+
+For example:
+```R
+> age = 2
+> if (age < 4){
++   print("This child is a toddler")
++ }else{
++   print("this child is older")
++ }
+[1] "This child is a toddler"
+
+> age = 10
+> if (age < 4){
++   print("This child is a toddler")
++ }else{
++   print("this child is older")
++ }
+[1] "this child is older"
+```
+
+As we can see in the example above, the 'if' statement runs and finishes executing when the condition within the parenthesis is met. If this condition is not met, then the 'else' statment runs and executes instead. Certain languages have a "dangling else" problem, this is when an 'else' statement doesn't clearly belong to an 'if' statement. As you have seen in previous examples, if/else statements are each outside of curly brackets but the brackets must not overlap. What may have not been clear is that if/else statements are also reliant on indentation. The indentation determines the scope of the statements, if the syntax does not follow these rules, the code will not run.
+
+#### Multi-Conditional Statements
+
+if/else statments can also be written with multiple conditions, this is written if/else if/else or using specific operators that join conditions. 
+
+For example: 
+```R
+> age2 = 2
+> if (age2 < 4){
++   print("This child is a toddler")
++ }else if(age2 <= 12){
++   print("This person is still a child")
++ }else if(age2 > 12 && age2 < 18){
++   print("this person is a preteen")
++ }else{
++   print("This person is now an adult")}
+[1] "This child is a toddler"
+
+> age2 = 15
+> if (age2 < 4){
++   print("This child is a toddler")
++ }else if(age2 <= 12){
++   print("This person is still a child")
++ }else if(age2 > 12 && age2 < 18){
++   print("this person is a preteen")
++ }else{
++   print("This person is now an adult")}
+[1] "this person is a preteen"
+
+> age2 = 21
+> if (age2 < 4){
++   print("This child is a toddler")
++ }else if(age2 <= 12){
++   print("This person is still a child")
++ }else if(age2 > 12 && age2 < 18){
++   print("this person is a preteen")
++ }else{
++   print("This person is now an adult")}
+[1] "This person is now an adult"
+```
+
+Continuing with our previous example, we can modify the code to include multi-conditonal statments. Multi-condition if/else statements are statements that include multiple 'if' statements. As we see above, we can use 'else if' to create a second or even third condition (or as many as needed) within the program. Another way to construct a multi-conditonal statement is to use the "&&" operator to put two conditions within a single 'if' statement, we saw an example of this above. 
+
+#### Short-Circuit Logic
+Short circuit logic is used within programming languages to stop the execution of a multi condition when the first condition is false. We mentioned above the "&&" operator which signifies "AND" in R conditonal statements. We saw an example of using this operator to create a multi conditional statement within parenthesis. What was not clear in this example is that R uses short circuit logic to deicde if running both conditions is necessary. 
+
+For example:
+```R
+> x = 6
+> y = 4
+> if (x < 5 && y > 3){
++   print("This condition is met")
++ }else{
++   print("This condition is not met")
++ }
+[1] "This condition is not met"
+```
+As seen in the above example, the code will print the "else" print statement because the condition within the "if" statement is not met. Although the second condition "y > 3" is True, the first condition "x < 5" is False and therefore the entire condition is false and will not execute the print statement. This is an example of short-circuit logic, this is important to remember when making our conditonal statements.
+
+### Selection Control Statements
+
+Selection control statements, as mentioned previously, are used to choose between cases. These are a subtype of control statements. We can use switch statements to choose between multiple cases or conditions.
+
+For example:
+
+```R
+> courses = "CS"
+> semester_courses = switch(
++   courses, 
++   "CS" = "CS330",
++   "STAT" = "STAT227",
++   "BUS" = "BUS100")
+> cat("The course code is", semester_courses)
+The course code is CS330
+```
+In the above example we can see a switch statement being used to find the course code of a specific department or subject. Unlike other languages that have 'switch' statements, in R, cases are contained within parenthesis, this is how the code block is delimited. A 'break' statement isn't necessary unlike in 'Repeat Loops' as mentioned in the previous repository (check "Intro-to-R-part3" to see an example of repeat loops with conditonal statements).  
+
+### Sources 
+- https://www.geeksforgeeks.org/control-statements-in-r-programming/#repeatandbreak
+- https://r-critique.com/short-circuit-evaluation
