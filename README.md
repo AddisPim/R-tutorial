@@ -567,10 +567,10 @@ jane$print_details()
 
 By comparing all 3 systems of OOP in R, the difference between the syntax and complexity is much more obvious to see. Each system has it's advantages and disadvantages but each of these systems has its own purpose. 
 
-###### To summarize: 
-S3: Simple and flexible, great for quick and informal object-oriented coding.
-S4: More formal and structured, ideal for complex and large-scale projects.
-R6 (Reference Classes): Offers reference semantics for efficient memory use, suitable for complex, memory-intensive applications.
+### To summarize: 
+- S3: Simple and flexible, great for quick and informal object-oriented coding.
+- S4: More formal and structured, ideal for complex and large-scale projects.
+- R6 (Reference Classes): Offers reference semantics for efficient memory use, suitable for complex, memory-intensive applications.
 
 
 
