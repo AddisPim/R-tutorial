@@ -113,7 +113,7 @@ For example:
 ### Variables
 R has its own naming conventions as does almost every other programming language. For the variable names in R 
 
-## PLP-3 # Loops and Functions in R
+## PLP-3 Loops and Functions in R
 
 ### Loops
 Due to R's general use being statistical calculations and machine learning, aside from other data science capabilities, it only has 3 loops. The three loops available on R are the 'For Loop', 'The While Loop' and the 'repeat Loop.' These three loops each have their own specific uses within R. 
