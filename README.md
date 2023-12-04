@@ -557,15 +557,15 @@ Student <- R6Class("Student",
                    ))
 
 # Instantiate a Person object
-john <- Person$new(name = "John Doe", age = 30)
+Bob <- Person$new(name = "Bob Smith", age = 15)
 john$print_details()
 
 # Instantiate a Student object
-jane <- Student$new(name = "Jane Doe", age = 22, student_id = "123456", major = "Biology")
+Lily <- Student$new(name = "Lily Smith", age = 16, student_id = "123456", major = "Biology")
 jane$print_details()
 ```
 
-By comparing all 3 systems of OOP in R, the difference between the syntax and complexity is much more obvious to see. Each system has it's advantages and disadvantages but each of these systems have their own purpose. 
+By comparing all 3 systems of OOP in R, the difference between the syntax and complexity is much more obvious to see. Each system has it's advantages and disadvantages but each of these systems has its own purpose. 
 
 ###### To summarize: 
 S3: Simple and flexible, great for quick and informal object-oriented coding.
