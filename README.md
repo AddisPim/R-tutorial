@@ -393,3 +393,208 @@ In the above example we can see a switch statement being used to find the course
 ### Sources 
 - https://www.geeksforgeeks.org/control-statements-in-r-programming/#repeatandbreak
 - https://r-critique.com/short-circuit-evaluation
+
+## PLP-5 Classes and Inheritance
+
+R in itself is a multi-paradigm programming language, meaning it supports several different programming paradigms. This includes Object Oriented Progragmming (OOP), Functional programming, and the most commonly used paradigm in data analysis; Procedural programming. In this section we will be using some of the OOP functionalities in R. Within R there are S3 and S4 and Reference Classes or R6, these are all very different approaches to OOP. These systems provide ways to define and use objects and classes in R, each with its own set of rules and syntax. We will be diving into the similarities and differences between these systems in the below sections. 
+
+### S3
+
+The S3 system is a straightforward and flexible way to use object-oriented programming. It's like a casual approach where you don't have to define your objects too strictly. You just add labels to your data to tell R what kind of object it is, and write functions that behave differently based on these labels. It's really user-friendly and great for quick tasks or when you don't need very complex structures. This simplicity makes S3 popular, especially for everyday programming and data analysis tasks.
+
+#### Inheritance In S3
+Inheritance is informal within this system as we mentioned; this system is known for it's informality. You can simply add another class name to the class attribute of an object. The system then looks for methods in the order of the class names. S3 allows a class like Student to borrow features from another class like Person simply by adding Person to its class description. It's a quick and easy way to share behaviors between classes.
+
+In order to get a clear visual of how S3 functions, let's look at how to create an object and how to inherit step-by-step.
+
+Example: 
+```R
+# Define the 'Person' class
+Person <- function(name, age) {
+  list(name = name, age = age)
+}
+# Set class attribute for 'Person'
+class(Person) = "Person"
+```
+First we will define the 'Person' class or the parent class in which we will later be inheriting from. In the ebove code we are also setting the class attribute for Person. Pay attention to the syntax used in this system to create objects anc classes.
+
+
+
+```R
+# Define a method for displaying 'Person' details
+print.Person <- function(person) {
+  cat("Person Name:", person$name, "\nAge:", person$age, "\n")
+}
+```
+We have now created the method for displaying 'Person' details, our method is print.Person which will print Person name and Person age.
+
+
+
+```R
+# Define the 'Student' class, inheriting from 'Person'
+Student <- function(name, age, student_id, course) {
+  person <- Person(name, age)
+  list(name = person$name, age = person$age, student_id = student_id, course = course)
+}
+
+# Set class attribute for 'Student'
+class(Student) <- c("Student", "Person")
+
+# Define a method for displaying 'Student' details
+print.Student <- function(student) {
+  cat("Student Name:", student$name, "\nAge:", student$age, "\nStudent ID:", student$student_id, "\nCourse:", student$course, "\n")
+}
+```
+The above code shows us repeating the same steps as we did to define the 'Person' class and set class attributes, we are now doing this for the 'Student' class in which we will be inheriting from the parent / Person class to the Student / child class. As you can see above, we add person to the Student's class attributes to sllow for inheritance among classes. We then define a method for calling Students in the Students class.
+
+
+```R
+# Instantiate a Person object
+Bob <- Person("Bob Smith", 15)
+print(Bob)
+
+#printing Person's information using the method defined previously
+print.Person(Bob)
+
+# Instantiate a Student object
+Lily <- Student("Lily Smith", 16, "54321", "Biology")
+print(jane)
+
+#printing Student's information using the method defined previously
+print.Student(jane)
+print.Student(john)
+```
+To make sure this is working now that our objects and classes are set up for 'Person' and 'Student', we can initiate a Person object and a Student object. We have created two students, Bob and Lily. We can get the informatino for Bob by either printing the object or calling the methods created earlier, this is done the same for Lily. By calling the methods we have printed out the information for both Bob and Lily and this is an example of inheritance with the S3 system.
+
+### S4
+In R, the S4 system is a more organized way of doing object-oriented programming. It's like creating a detailed blueprint for your objects. In S4, you define classes very clearly, specifying exactly what features (called 'slots') each object will have, like giving a person a name and age. This system is great for big projects because it keeps everything well-structured and clear. It's a bit more complex than the simpler S3 system, but it's really good for when you need to make sure your objects follow specific rules and structures.
+
+#### Inheritance with S4
+
+S4 supports formal inheritance, where a class can be defined to inherit from another class, including its slots and methods. This is more similar to traditional OOP languages. In S4, a class such as Student can directly inherit from Person, automatically gaining all its characteristics and methods, plus any new ones specific to Student. It's a more structured and explicit way of building on existing classes.
+
+As we did with S3 systems, it's best to look at an example and observe the different syntax. I will be using an identical example to the one shown for S3.
+
+Example: 
+```R
+# Define the 'Person' class
+Person <- function(name, age) {
+  list(name = name, age = age)
+}
+
+# Set class attribute for 'Person'
+class(Person) <- "Person"
+
+# Define a method for displaying 'Person' details
+print.Person <- function(person) {
+  cat("Person Name:", person$name, "\nAge:", person$age, "\n")
+}
+
+# Define the 'Student' class, inheriting from 'Person'
+Student <- function(name, age, student_id, major) {
+  person <- Person(name, age)
+  structure(list(name = person$name, age = person$age, student_id = student_id, major = major), class = c("Student", "Person"))
+}
+
+# Define a method for displaying 'Student' details
+print.Student <- function(student) {
+  cat("Student Name:", student$name, "\nAge:", student$age, "\nStudent ID:", student$student_id, "\nMajor:", student$major, "\n")
+}
+
+# Instantiate a Person object
+Bob <- Person("Bob Smith", 15)
+print.Person(Bob)
+
+# Instantiate a Student object
+Lily <- Student("Lily Smith", 16, "54321", "Biology")
+print.Student(Lily)
+```
+In the above example we went through every step for inheriting from objects. By comparing the code for S3 and S4 we can see the changes in rules and syntax, we will now be looking at Reference classes as the final method for using OOP within R.
+
+### Reference Classes (R6)
+
+Reference Classes, and their more updated version known as R6, bring a different style of object-oriented programming to R. Unlike the earlier S3 and S4 systems in R, where objects are usually copied when modified, Reference Classes work more like how Java does - when you change an object, you change the original one directly, not a copy. This approach is really handy for big, complex projects because it's more efficient with memory. Reference Classes let you have private and public parts, just like in many other programming languages, making them great for building large applications.
+
+#### Inheritance In R6
+
+R6 is similiar to traditional OOP languages due to its reference based inheritance. With R6, a Student class can inherit from a Person class, getting all of Person's properties and methods while adding its own. This is efficient for building complex objects and avoiding code repetition. 
+
+We will now look at an example of inheritance with R6, note: the example will be identical to the ones used for S3 and S4 examples.
+
+```R
+# Load R6 package
+library(R6)
+
+# Define the 'Person' class
+Person <- R6Class("Person",
+                  public = list(
+                    name = NULL,
+                    age = NULL,
+                    initialize = function(name, age) {
+                      self$name <- name
+                      self$age <- age
+                    },
+                    print_details = function() {
+                      cat("Name:", self$name, "\nAge:", self$age, "\n")
+                    }
+                  ))
+
+# Define the 'Student' class, inheriting from 'Person'
+Student <- R6Class("Student",
+                   inherit = Person,
+                   public = list(
+                     student_id = NULL,
+                     major = NULL,
+                     initialize = function(name, age, student_id, major) {
+                       super$initialize(name, age)
+                       self$student_id <- student_id
+                       self$major <- major
+                     },
+                     print_details = function() {
+                       super$print_details()
+                       cat("Student ID:", self$student_id, "\nMajor:", self$major, "\n")
+                     }
+                   ))
+
+# Instantiate a Person object
+john <- Person$new(name = "John Doe", age = 30)
+john$print_details()
+
+# Instantiate a Student object
+jane <- Student$new(name = "Jane Doe", age = 22, student_id = "123456", major = "Biology")
+jane$print_details()
+```
+
+By comparing all 3 systems of OOP in R, the difference between the syntax and complexity is much more obvious to see. Each system has it's advantages and disadvantages but each of these systems have their own purpose. 
+
+###### To summarize: 
+S3: Simple and flexible, great for quick and informal object-oriented coding.
+S4: More formal and structured, ideal for complex and large-scale projects.
+R6 (Reference Classes): Offers reference semantics for efficient memory use, suitable for complex, memory-intensive applications.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
